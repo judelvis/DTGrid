@@ -1,5 +1,5 @@
 function verificarEditable(identificador,obj){
-    alert(JSON.stringify(obj));
+    //alert(JSON.stringify(obj));
     //eval("alert(obj."+identificador+".datos.cuerpo[2][2]);");
     var enume = 0;
     var posCol = 0;

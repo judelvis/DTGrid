@@ -46,5 +46,5 @@ print("<pre>Estructura de arreglo de datos<br>");
 <p id='objeto_local'><?php echo json_encode($tablas,true);?></p>
 <div id='otro'>aqui esta el div2</div>
 </body>
-    <script type="text/javascript" src="../js/detalle.js"></script>
+
 </html>
