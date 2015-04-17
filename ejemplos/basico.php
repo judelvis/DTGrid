@@ -34,7 +34,7 @@ for($h=0;$h <2;$h++){
 	$cabecera = array('cabecera1','cabecera2','cabecera3','cabecera4');	
 	for($i=1;$i<=5;$i++){
 		$cuerpo[] = array("campo1".$i,"campo2".$i,"campo3".$i,"campo4".$i);
-        $detalle[] = "<h1>Detalle ".$i-"</h1>";
+        $detalle[] = "<h1>Detalle ".$i."</h1>";
 	}
 	$tablas[]=array("cabecera"=>$cabecera,"cuerpo"=>$cuerpo,"detalle"=>$detalle);
 }

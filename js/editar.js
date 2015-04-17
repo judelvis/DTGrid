@@ -1,5 +1,5 @@
 function verificarEditable(identificador,obj){
-    //alert(JSON.stringify(obj));
+    alert(JSON.stringify(obj));
     //eval("alert(obj."+identificador+".datos.cuerpo[2][2]);");
     var enume = 0;
     var posCol = 0;
@@ -73,8 +73,9 @@ function verificarEditable(identificador,obj){
         if ( x > max.x ) x = max.x;
         if ( y < 1 ) y = 1;
         if ( x < 1 ) x = 1;
-        celdaActual = $hTable.find('tr:nth-child('+(y)+')').find('td:nth-child('+(x+enume)+')');
-        alert(identificador);
+        //celdaActual = $hTable.find('tr:nth-child('+(y)+')').find('td:nth-child('+(x+enume)+')');
+        var pos = x+enume;
+        celdaActual = $hTable.find("[id=td-"+identificador+'-'+y+"-"+pos+"]");
         celdaActual.toggleClass('selected');
         if(numera == true)$("#btn-"+identificador+'-'+y).focus();
         else $("#btnEditar-"+identificador).focus();
