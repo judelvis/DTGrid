@@ -110,7 +110,7 @@
             crearTabla(identificador,arreglo,div);
             var detalle = "";
             if(arreglo.config.detalle != undefined){
-                detalle = arreglo.config.detalle.tipo;
+                detalle = arreglo.config.detalle;
                 arreglo.config.enumera = true;
             }
             var numera = false;
@@ -191,7 +191,7 @@
                 var btnClon = btnFocoFila.cloneNode(true);
                 btnClon.id='btn-'+identificador+'-'+i;
                 btnClon.innerHTML=i;
-                if(detalle != "") btnClon.setAttribute("detalle",identificador + '-' +detalle);
+                if(detalle.tipo != "") btnClon.setAttribute("detalle",identificador + '-' +detalle.tipo);
                 var thNumera = document.createElement('th');//crea th para la numeracion
                 thNumera.id='th-numera-'+identificador+'-'+i;
                 thNumera.appendChild(btnClon);
@@ -201,10 +201,10 @@
             crearCelda(this,filaCuerpo,identificador,cuerpoInicial);
             i++;
         });
-        if(detalle != ''){
-            switch (detalle){
+        if(detalle.tipo != ''){
+            switch (detalle.tipo){
                 case 'pre':fdetpre(datosCuerpo.detalle,identificador);break;
-                case 'post': fdetpost();break;
+                case 'post': fdetpost(detalle,identificador);break;
             }
 
         }

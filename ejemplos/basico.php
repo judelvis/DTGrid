@@ -17,7 +17,7 @@
                 var para = 'cedula=17456121';
                 var datos2 = {'tipoOrigen':'php','rutaObjeto':'origenphp.php','parametro':para};
                 var datosCombo = {'0':'Venezuela','1':'Provincial'};
-                $("#prueba").dtgrid(datos2,[{'titulo':'titulo1',"detalle":{"tipo":"post"},'editable':{'c4':'calendario','c5':datosCombo},'enumera':true}]);
+                $("#prueba").dtgrid(datos2,[{'titulo':'titulo1','oculto':[2],"detalle":{"tipo":"post","ruta":'detalle.php',"parametro":[1]},'editable':{'c4':'calendario','c5':datosCombo},'enumera':true}]);
 
 			});
 		</script>
