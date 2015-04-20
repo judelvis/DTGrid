@@ -117,7 +117,7 @@
             if(arreglo.config.enumera != undefined) numera=arreglo.config.enumera;
 
             crearCabecera(identificador,arreglo.datos.cabecera,numera);
-            crearCuerpo(identificador,arreglo.datos.cuerpo,numera,detalle);
+            crearCuerpo(identificador,arreglo.datos,numera,detalle);
             if(arreglo.config.editable != undefined) {
                 btnEditable(identificador,obj);
             }
@@ -183,7 +183,7 @@
         var i = 1;
         var btnFocoFila = document.createElement('button');
         btnFocoFila.style.cssText = 'background-color: transparent !important;border:0px;';
-        $.each(datosCuerpo,function(){
+        $.each(datosCuerpo.cuerpo,function(){
             var filaCuerpo = cuerpoInicial.insertRow(cuerpoInicial.rows.length);//crea fila del cuerpo de la tabla
             filaCuerpo.id = 'fila-'+identificador+'-'+i;
             if(i==1)filaCuerpo.className='first';
@@ -191,13 +191,9 @@
                 var btnClon = btnFocoFila.cloneNode(true);
                 btnClon.id='btn-'+identificador+'-'+i;
                 btnClon.innerHTML=i;
-                if(detalle != "") {
-                    btnClon.setAttribute("detalle",identificador + '-' +detalle);
-                    fdetpre(datosCuerpo,identificador);
-                }
+                if(detalle != "") btnClon.setAttribute("detalle",identificador + '-' +detalle);
                 var thNumera = document.createElement('th');//crea th para la numeracion
                 thNumera.id='th-numera-'+identificador+'-'+i;
-                //thNumera.innerHTML = i;
                 thNumera.appendChild(btnClon);
                 thNumera.style.cssText='width:10px';
                 filaCuerpo.appendChild(thNumera);
@@ -205,6 +201,13 @@
             crearCelda(this,filaCuerpo,identificador,cuerpoInicial);
             i++;
         });
+        if(detalle != ''){
+            switch (detalle){
+                case 'pre':fdetpre(datosCuerpo.detalle,identificador);break;
+                case 'post': fdetpost();break;
+            }
+
+        }
     }
 
     var crearCelda = function(obj,filaCuerpo,identificador,cuerpoInicial){
@@ -257,52 +260,6 @@
         construir(objDtgrid,div);
         return this;
     };
-    function fdetpre(objPrincipal,identificador){
-        $("[detalle="+identificador+"-pre]").click(function (event) {
-            var identificadores = this.id.split('-');
-            var cuerpo = document.getElementById('cuerpo-' + identificadores[1]);
-            var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]);
-            alert(JSON.stringify(objPrincipal));
-            verificarDetalle(fila);
-        });
-    }
 
-    var crearDetalle = function(fila){
-        var iden = fila.id.split('-');
-        var tds=$("#"+fila.id+":first td").length;
-        var tr = document.createElement("tr");
-        tr.id='detalle-'+fila.id;
-        var td = tr.insertCell(0);
-        td.innerHTML='epale';
-        td.colSpan = tds+1;
-        $("#"+fila.id).after(tr);
-        tr.appendChild(td);
-    }
-
-    var verificarDetalle = function(fila){
-        var fDetalle = document.getElementById('detalle-'+fila.id);
-        if(fDetalle == null) crearDetalle(fila);
-        else verificarVisibilidad(fDetalle.id);
-    }
-
-    var verificarVisibilidad = function(id){
-        var filaDetalle = document.getElementById(id);
-        var visible = filaDetalle.style.display;
-        alert("visibilidad" + visible);
-        if(visible == '' || visible == 'table-row'){
-            ocultarDetalle(id);
-        }else if(visible == 'none'){
-            mostrarDetalle(id);
-        }
-
-    }
-
-    var ocultarDetalle = function(id){
-        $("#"+id).hide();
-    }
-
-    var mostrarDetalle = function(id){
-        $("#"+id).show();
-    }
 
 }( jQuery ));
