@@ -2,6 +2,7 @@
 include('../datos/coneccion.php');
 $datos = json_decode($_POST['datos'],true);
 $tablas = array();
+mysql_query("SET NAMES 'utf8'");
 $resultado = mysql_query('SELECT * from t_personas WHERE documento_id="'.$datos[0].'" ');
 $cuerpoConsulta = array();
 $html = 'Datos Personales:<br>';

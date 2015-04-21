@@ -15,10 +15,12 @@
 				var datos2 = {'tipoOrigen':'var','rutaObjeto':json,'parametro':''};
 				$("#otro").dtgrid(datos2,[{'titulo':'Tabla1',"detalle":{"tipo":"pre"},'editable': {'c1':'texto','c3':'texto','c4':'calendario'}},{'titulo':'tabla2',"detalle":{"tipo":"pre"},'enumera':true,'editable':{'c1':'texto'}}]);
                 var para = 'cedula=17456121';
-                var datos2 = {'tipoOrigen':'php','rutaObjeto':'origenphp.php','parametro':para};
+                var datos3 = {'tipoOrigen':'php','rutaObjeto':'origenphp.php','parametro':para};
                 var datosCombo = {'0':'Venezuela','1':'Provincial'};
-                $("#prueba").dtgrid(datos2,[{'titulo':'titulo1','oculto':[2],"detalle":{"tipo":"post","ruta":'detalle.php',"parametro":[1]},'editable':{'c4':'calendario','c5':datosCombo},'enumera':true}]);
-
+                $("#prueba").dtgrid(datos3,[{'titulo':'titulo1','oculto':[2],"detalle":{"tipo":"post","ruta":'detalle.php',"parametro":[1]},'editable':{'c4':'calendario','c5':datosCombo},'enumera':true}]);
+                var datos4 = {'tipoOrigen':'php','rutaObjeto':'origenphp2.php'};
+                var datos5= {'tipoOrigen':'php','rutaObjeto':'detalle2.php','parametro':[1,2]};
+                $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'detalle':{'tipo':'dtgrid',"origen":datos5,'config':{}}});
 			});
 		</script>
 	</head>
@@ -42,9 +44,10 @@ print("<pre>Estructura de arreglo de datos<br>");
 //print_R($tablas);
 ?>
 <h1>Tablas Generadas</h1>
-<div id='prueba'>aqui esta el div1</div>
+<div id='prueba'>Grid Con Detalle Post</div>
 <p id='objeto_local'><?php echo json_encode($tablas,true);?></p>
-<div id='otro'>aqui esta el div2</div>
+<div id='otro'>Prueba de Grid Multiples en un Div con origen objeto local</div>
+<div id='grid_detalle'>Prueba Grid Detalle Grid</div>
 </body>
 
 </html>

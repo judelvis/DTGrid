@@ -17,6 +17,16 @@ function fdetpost(detalle,identificador){
     });
 }
 
+function fdetdtgrid(detalle,identificador){
+    $("[detalle="+identificador+"-dtgrid]").click(function (event) {
+        var identificadores = this.id.split('-');
+        var cuerpo = document.getElementById('cuerpo-' + identificadores[1]);
+        var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]);
+        //alert(JSON.stringify(detalle));
+        verificarDetalle(fila,detalle,2);
+    });
+}
+
 var crearDetalle = function(id,detalle){
     var tds=$("#"+id+":first td").length;
     var tr = document.createElement("tr");
@@ -28,6 +38,8 @@ var crearDetalle = function(id,detalle){
     tr.appendChild(td);
 }
 
+
+
 var verificarDetalle = function(fila,detalles,tipo){
     var fDetalle = document.getElementById('detalle-'+fila.id);
     if(fDetalle == null) {
@@ -35,6 +47,7 @@ var verificarDetalle = function(fila,detalles,tipo){
         switch (tipo){
             case 0:asignarDetalle(fila.id,detalles);break;
             case 1:asignarDetallePost(fila.id,detalles);break;
+            case 2:asignarDetalleGrid(fila.id,detalles);break;
         }
 
     }
@@ -72,11 +85,22 @@ var asignarDetallePost = function(id,objDetalle){
     $.each(objDetalle.parametro, function(pos,valor){
         para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
     });
-
     $.ajax({url : objDetalle.ruta,type : "POST",data : "datos="+JSON.stringify(para),//dataType : "json",
         success : function(resp) {
             $("#celda-detalle-"+id).html(resp);
         }
     });
+}
+
+var asignarDetalleGrid = function(id,objDetalle){
+    var iden = id.split('-');
+    var para = [];
+    //alert(objDetalle.origen.parametro);
+    $.each(objDetalle.origen.parametro, function(pos,valor){
+        para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
+    });
+    objDetalle.origen.parametro = "datos="+JSON.stringify(para);
+    alert(objDetalle.origen.parametro);
+    $("#celda-detalle-"+id).dtgrid(objDetalle.origen);
 
 }

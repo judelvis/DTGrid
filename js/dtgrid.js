@@ -205,8 +205,8 @@
             switch (detalle.tipo){
                 case 'pre':fdetpre(datosCuerpo.detalle,identificador);break;
                 case 'post': fdetpost(detalle,identificador);break;
+                case 'dtgrid': fdetdtgrid(detalle,identificador);break;
             }
-
         }
     }
 
