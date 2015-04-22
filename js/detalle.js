@@ -21,7 +21,12 @@ function fdetdtgrid(detalle,identificador){
     $("[detalle="+identificador+"-dtgrid]").click(function (event) {
         var identificadores = this.id.split('-');
         var cuerpo = document.getElementById('cuerpo-' + identificadores[1]);
-        var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]);
+
+        if(identificadores.length == 3) var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]);
+        else var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]+'-'+identificadores[3]+'-'+identificadores[4]);
+        //alert('**/'+fila.id);
+        //alert('fila-'+identificadores[1]+'-'+identificadores[2]);
+        //alert(identificadores);
         //alert(JSON.stringify(detalle));
         verificarDetalle(fila,detalle,2);
     });
@@ -29,10 +34,12 @@ function fdetdtgrid(detalle,identificador){
 
 var crearDetalle = function(id,detalle){
     var tds=$("#"+id+":first td").length;
+    var idPicado = id.split('-');
     var tr = document.createElement("tr");
-    tr.id='detalle-'+id;
+    if(idPicado.length==3)tr.id=idPicado[1]+'-'+idPicado[2]+'-detalle';
+    else tr.id=idPicado[1]+'-'+idPicado[2]+'-'+idPicado[3]+'-'+idPicado[4];
     var td = tr.insertCell(0);
-    td.id = 'celda-'+tr.id;
+    td.id = tr.id+'_celda';
     td.colSpan = tds+1;
     $("#"+id).after(tr);
     tr.appendChild(td);
@@ -41,7 +48,9 @@ var crearDetalle = function(id,detalle){
 
 
 var verificarDetalle = function(fila,detalles,tipo){
-    var fDetalle = document.getElementById('detalle-'+fila.id);
+    var idPicado = fila.id.split('-');
+    if(idPicado.length == 3) var fDetalle = document.getElementById(idPicado[1]+'-'+idPicado[2]+'-detalle');
+    else var fDetalle = document.getElementById(idPicado[1]+'-'+idPicado[2]+'-'+idPicado[3]+'-'+idPicado[4]);
     if(fDetalle == null) {
         crearDetalle(fila.id,detalles);
         switch (tipo){
@@ -76,7 +85,7 @@ var mostrarDetalle = function(id){
 
 var asignarDetalle = function(id,contenido){
     var iden = id.split('-');
-    $("#celda-detalle-"+id).html(contenido[iden[2]-1]);
+    $("#"+iden[1]+"-"+iden[2]+"-detalle_celda").html(contenido[iden[2]-1]);
 }
 
 var asignarDetallePost = function(id,objDetalle){
@@ -87,7 +96,7 @@ var asignarDetallePost = function(id,objDetalle){
     });
     $.ajax({url : objDetalle.ruta,type : "POST",data : "datos="+JSON.stringify(para),//dataType : "json",
         success : function(resp) {
-            $("#celda-detalle-"+id).html(resp);
+            $("#"+iden[1]+'-'+iden[2]+"-detalle_celda").html(resp);
         }
     });
 }
@@ -95,12 +104,21 @@ var asignarDetallePost = function(id,objDetalle){
 var asignarDetalleGrid = function(id,objDetalle){
     var iden = id.split('-');
     var para = [];
-    //alert(objDetalle.origen.parametro);
-    $.each(objDetalle.origen.parametro, function(pos,valor){
-        para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
-    });
+    if(iden.length == 3){
+        $.each(objDetalle.parametro, function(pos,valor){
+            para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
+        });
+    }else{
+
+        $.each(objDetalle.parametro, function(pos,valor){
+            alert(iden + '/**/'+"[columna="+iden[1]+'-'+iden[2]+'-'+iden[3]+"-"+valor+"]");
+            para.push($("#"+id).find("[columna="+iden[1]+'-'+iden[2]+'-'+iden[3]+"-"+valor+"]").html());
+        });
+    }
+    //alert(objDetalle.parametro);
+
+    alert(para);
     objDetalle.origen.parametro = "datos="+JSON.stringify(para);
-    alert(objDetalle.origen.parametro);
-    $("#celda-detalle-"+id).dtgrid(objDetalle.origen);
+    $("#"+iden[1]+'-'+iden[2]+"-detalle_celda").dtgrid(objDetalle.origen,objDetalle.config);
 
 }

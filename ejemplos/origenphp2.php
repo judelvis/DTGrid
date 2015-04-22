@@ -5,7 +5,7 @@ include('../datos/coneccion.php');
 $tablas = array();
 mysql_query("SET NAMES 'utf8'");
 
-$resultado = mysql_query('SELECT * from t_personas limit 20');
+$resultado = mysql_query('SELECT * from t_personas join t_clientes_creditos on t_clientes_creditos.documento_id = t_personas.documento_id group by t_clientes_creditos.documento_id limit 20');
 $cuerpoConsulta = array();
 $cabeceraConsulta = array('Cedula','Nombre','Banco','Fecha_Nacimiento','Cuenta');
 

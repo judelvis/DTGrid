@@ -19,8 +19,10 @@
                 var datosCombo = {'0':'Venezuela','1':'Provincial'};
                 $("#prueba").dtgrid(datos3,[{'titulo':'titulo1','oculto':[2],"detalle":{"tipo":"post","ruta":'detalle.php',"parametro":[1]},'editable':{'c4':'calendario','c5':datosCombo},'enumera':true}]);
                 var datos4 = {'tipoOrigen':'php','rutaObjeto':'origenphp2.php'};
-                var datos5= {'tipoOrigen':'php','rutaObjeto':'detalle2.php','parametro':[1,2]};
-                $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'detalle':{'tipo':'dtgrid',"origen":datos5,'config':{}}});
+                var datos5= {'tipoOrigen':'php','rutaObjeto':'detalle2.php'};
+                var datos6 = {'tipoOrigen':'php','rutaObjeto':'detalle3.php'};
+                var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'dtgrid','origen':datos6,'config':{},'parametro':[1]}};
+                $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
 			});
 		</script>
 	</head>
