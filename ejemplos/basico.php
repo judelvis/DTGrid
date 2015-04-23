@@ -21,8 +21,10 @@
                 var datos4 = {'tipoOrigen':'php','rutaObjeto':'origenphp2.php'};
                 var datos5= {'tipoOrigen':'php','rutaObjeto':'detalle2.php'};
                 var datos6 = {'tipoOrigen':'php','rutaObjeto':'detalle3.php'};
-                var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'dtgrid','origen':datos6,'config':{},'parametro':[1]}};
-                $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
+                //var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'dtgrid','origen':datos6,'config':{},'parametro':[1]}};
+                //$("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
+                var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'pre'}};
+                $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
 			});
 		</script>
 	</head>
@@ -36,7 +38,7 @@ for($h=0;$h <3;$h++){
 	$cuerpo = array();
     $detalle = array();
 	$cabecera = array('cabecera1','cabecera2','cabecera3','cabecera4');	
-	for($i=1;$i<=5;$i++){
+	for($i=1;$i<=3;$i++){
 		$cuerpo[] = array("campo1".$i,"campo2".$i,"campo3".$i,"campo4".$i);
         $detalle[] = "<h1>Detalle ".$h.$i."</h1>";
 	}

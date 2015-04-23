@@ -8,12 +8,13 @@ mysql_query("SET NAMES 'utf8'");
 $resultado = mysql_query('SELECT * from t_personas join t_clientes_creditos on t_clientes_creditos.documento_id = t_personas.documento_id group by t_clientes_creditos.documento_id limit 20');
 $cuerpoConsulta = array();
 $cabeceraConsulta = array('Cedula','Nombre','Banco','Fecha_Nacimiento','Cuenta');
-
+$detalle = array();
 while ($fila = mysql_fetch_assoc($resultado)) {
     $nombre = $fila['primer_nombre']." ".$fila['primer_apellido'];
     $cuerpoConsulta[]= array($fila['documento_id'],$nombre,$fila['banco_1'].'.',$fila['fecha_nacimiento'].'.',$fila['cuenta_1'].'.');
+    $detalle[] = $fila['primer_nombre'];
 }
 
-$tablas[] = array('cabecera'=>$cabeceraConsulta,'cuerpo'=>$cuerpoConsulta);
+$tablas[] = array('cabecera'=>$cabeceraConsulta,'cuerpo'=>$cuerpoConsulta,'detalle'=>$detalle);
 echo json_encode($tablas);
 ?>
