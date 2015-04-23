@@ -108,17 +108,19 @@ var asignarDetalleGrid = function(id,objDetalle){
         $.each(objDetalle.parametro, function(pos,valor){
             para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
         });
+        objDetalle.origen.parametro = "datos="+JSON.stringify(para);
+        $("#"+iden[1]+'-'+iden[2]+"-detalle_celda").dtgrid(objDetalle.origen,objDetalle.config);
     }else{
-
         $.each(objDetalle.parametro, function(pos,valor){
             alert(iden + '/**/'+"[columna="+iden[1]+'-'+iden[2]+'-'+iden[3]+"-"+valor+"]");
             para.push($("#"+id).find("[columna="+iden[1]+'-'+iden[2]+'-'+iden[3]+"-"+valor+"]").html());
         });
+        objDetalle.origen.parametro = "datos="+JSON.stringify(para);
+        $("#"+iden[1]+'-'+iden[2]+"-"+iden[3]+"-"+iden[4]+'_celda').dtgrid(objDetalle.origen,objDetalle.config);
     }
     //alert(objDetalle.parametro);
 
     alert(para);
-    objDetalle.origen.parametro = "datos="+JSON.stringify(para);
-    $("#"+iden[1]+'-'+iden[2]+"-detalle_celda").dtgrid(objDetalle.origen,objDetalle.config);
+
 
 }
