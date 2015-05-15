@@ -21,9 +21,13 @@
                 var datos4 = {'tipoOrigen':'php','rutaObjeto':'origenphp2.php'};
                 var datos5= {'tipoOrigen':'php','rutaObjeto':'detalle2.php'};
                 var datos6 = {'tipoOrigen':'php','rutaObjeto':'detalle3.php'};
+                //Grid Con detalle tipo grid, de tipo dtgrid
                 //var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'dtgrid','origen':datos6,'config':{},'parametro':[1]}};
                 //$("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
-                var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'pre'}};
+                //Grid Con detalle tipo grid, de tipo pre
+                //var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'pre'}};
+                //$("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
+                var configDetalle = {'titulo':'Facturass','editable':{'c1':'texto'},'detalle':{'tipo':'post','ruta':'detalle.php','parametro':[6,1]}};
                 $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
 			});
 		</script>

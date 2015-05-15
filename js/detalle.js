@@ -13,7 +13,8 @@ function fdetpost(detalle,identificador){
     $("[detalle="+identificador+"-post]").click(function (event) {
         var identificadores = this.id.split('-');
         var cuerpo = document.getElementById('cuerpo-' + identificadores[1]);
-        var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]);
+        if(identificadores.length == 3) var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]);
+        else var fila = document.getElementById('fila-'+identificadores[1]+'-'+identificadores[2]+'-'+identificadores[3]+'-'+identificadores[4]);
         //alert(JSON.stringify(detalle));
         verificarDetalle(fila,detalle,1);
     });
@@ -44,7 +45,7 @@ var crearDetalle = function(id){
 
 
 
-var verificarDetalle = function(fila,detalles,tipo){alert(detalles);
+var verificarDetalle = function(fila,detalles,tipo){//alert(detalles);
     var idPicado = fila.id.split('-');
     if(idPicado.length == 3) var fDetalle = document.getElementById(idPicado[1]+'-'+idPicado[2]+'-detalle');
     else var fDetalle = document.getElementById(idPicado[1]+'-'+idPicado[2]+'-'+idPicado[3]+'-'+idPicado[4]);
@@ -95,14 +96,26 @@ var asignarDetalle = function(id,contenido){
 var asignarDetallePost = function(id,objDetalle){
     var iden = id.split('-');
     var para = [];
-    $.each(objDetalle.parametro, function(pos,valor){
-        para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
-    });
-    $.ajax({url : objDetalle.ruta,type : "POST",data : "datos="+JSON.stringify(para),//dataType : "json",
-        success : function(resp) {
-            $("#"+iden[1]+'-'+iden[2]+"-detalle_celda").html(resp);
-        }
-    });
+    if(iden.length == 3){
+        $.each(objDetalle.parametro, function(pos,valor){
+            para.push($("#"+id).find("[columna="+iden[1]+'-'+valor+"]").html());
+        });
+        $.ajax({url : objDetalle.ruta,type : "POST",data : "datos="+JSON.stringify(para),//dataType : "json",
+            success : function(resp) {
+                $("#"+iden[1]+'-'+iden[2]+"-detalle_celda").html(resp);
+            }
+        });
+    }else{
+        $.each(objDetalle.parametro, function(pos,valor){
+            para.push($("#"+id).find("[columna="+iden[1]+"-"+iden[2]+"-"+iden[3]+"-"+valor+"]").html());
+        });
+        $.ajax({url : objDetalle.ruta,type : "POST",data : "datos="+JSON.stringify(para),//dataType : "json",
+            success : function(resp) {
+                $("#"+iden[1]+"-"+iden[2]+"-"+iden[3]+"-"+iden[4]+'_celda').html(resp);
+            }
+        });
+
+    }
 }
 
 var asignarDetalleGrid = function(id,objDetalle){

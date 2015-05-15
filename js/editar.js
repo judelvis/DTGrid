@@ -1,5 +1,9 @@
 function verificarEditable(identificador,obj){
-    //alert(JSON.stringify(obj));
+    alert(JSON.stringify(obj)+'**'+identificador);
+    alert(identificador);
+    var objEdicion = eval('obj.'+identificador+'.config.editable');
+    alert(JSON.stringify(objEdicion));
+    //var objEdicion = {identificador:editarO};
     //eval("alert(obj."+identificador+".datos.cuerpo[2][2]);");
     var enume = 0;
     var posCol = 0;
@@ -83,6 +87,7 @@ function verificarEditable(identificador,obj){
     }
 
     function edit (elementoActual) {
+        alert(elementoActual);
         $.each(celdaActual,function(){
             attColumna = this.getAttribute('columna');
         });
