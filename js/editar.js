@@ -1,7 +1,7 @@
 function verificarEditable(identificador,obj){
     alert(JSON.stringify(obj)+'**'+identificador);
     alert(identificador);
-    var objEdicion = eval('obj.'+identificador+'.config.editable');
+    var objEdicion = eval('obj');
     alert(JSON.stringify(objEdicion));
     //var objEdicion = {identificador:editarO};
     //eval("alert(obj."+identificador+".datos.cuerpo[2][2]);");
