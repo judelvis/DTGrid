@@ -23,12 +23,12 @@
                 var datos6 = {'tipoOrigen':'php','rutaObjeto':'detalle3.php'};
                 //Grid Con detalle tipo grid, de tipo dtgrid
                 //var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'dtgrid','origen':datos6,'config':{},'parametro':[1]}};
-                //$("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
+                //$("#det").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
                 //Grid Con detalle tipo grid, de tipo pre
                 //var configDetalle = {'titulo':'Facturas','detalle':{'tipo':'pre'}};
-                //$("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
+                //$("#det").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
                 var configDetalle = {'titulo':'Facturass','editable':{'c1':'texto'},'detalle':{'tipo':'post','ruta':'detalle.php','parametro':[6,1]}};
-                $("#grid_detalle").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
+                $("#det").dtgrid(datos4,{'titulo':"Detalle Grid",'editable':{'c4':'calendario'},'detalle':{'tipo':'dtgrid',"origen":datos5,'config':configDetalle,'parametro':[1,2]}});
 			});
 		</script>
 	</head>
@@ -55,7 +55,7 @@ print("<pre>Estructura de arreglo de datos<br>");
 <div id='prueba'>Grid Con Detalle Post</div>
 <p id='objeto_local'><?php echo json_encode($tablas,true);?></p>
 <div id='otro'>Prueba de Grid Multiples en un Div con origen objeto local</div>
-<div id='grid_detalle'>Prueba Grid Detalle Grid</div>
+<div id='det'>Prueba Grid Detalle Grid</div>
 </body>
 
 </html>
