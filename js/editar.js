@@ -1,3 +1,5 @@
+//prueba
+
 function verificarEditable(identificador,obj){
     alert(JSON.stringify(obj)+'**'+identificador);
     alert(identificador);
