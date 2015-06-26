@@ -1,8 +1,8 @@
 function verificarEditable(identificador,obj){
-    alert(JSON.stringify(obj)+'**'+identificador);
-    alert(identificador);
+    //alert(JSON.stringify(obj)+'**'+identificador);
+    //alert(identificador);
     var objEdicion = eval('obj');
-    alert(JSON.stringify(objEdicion));
+    //alert(JSON.stringify(objEdicion));
     //var objEdicion = {identificador:editarO};
     //eval("alert(obj."+identificador+".datos.cuerpo[2][2]);");
     var enume = 0;
@@ -87,7 +87,7 @@ function verificarEditable(identificador,obj){
     }
 
     function edit (elementoActual) {
-        alert(elementoActual);
+        //alert(elementoActual);
         $.each(celdaActual,function(){
             attColumna = this.getAttribute('columna');
         });
@@ -192,5 +192,6 @@ function crearCombo(elementoActual,tipo){
     $.each(tipo,function(clave,valor){
         combo.append( new Option(valor,clave) );
     });
+    combo.className="browser-default";
     elementoActual.html(combo);
 }

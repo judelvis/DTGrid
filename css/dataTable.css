@@ -6,14 +6,13 @@ table thead th,table tbody td {padding:5px; width:300px; }
 
 .first td {padding-top:35px;}*/
 
-.btn-numera
 
 
 * {
     box-sizing: border-box;
 }
-
-table {
+/*de aqui
+/*table {
     width: 100%;
     max-width: 800px;
     border-collapse: collapse;
@@ -35,7 +34,7 @@ th {
     box-shadow: inset 0px 1px 2px #568ebd;
     transition: all 0.2s;
 }
-
+hasta aca*/
 tr:last-child {
     border-bottom: 0px;
 }

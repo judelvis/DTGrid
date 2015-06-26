@@ -143,8 +143,8 @@
     var crearTabla = function(identificador, arreglo,div){
         var tabla = document.createElement('table');//crea la tabla
         tabla.id = 'tbl-'+identificador;
-        tabla.className = 'heavyTable';
-        tabla.style.cssText='position: relative;heigth:100px:';
+        tabla.className = 'hoverable striped responsive-table';
+        //tabla.style.cssText='position: relative;heigth:100px:';
         var titulo = tabla.createCaption();//crea caption
         titulo.id='titulo-'+identificador;
         if(arreglo.config.titulo != undefined)titulo.innerHTML = arreglo.config.titulo;
