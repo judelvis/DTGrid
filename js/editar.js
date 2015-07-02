@@ -8,13 +8,15 @@ function verificarEditable(identificador,obj){
     var enume = 0;
     var posCol = 0;
     var posFila = 0;
+    //alert(identificador);
     var numera = eval('obj.'+identificador+'.config.enumera;');
+    //alert(numera);
     if(numera == true)enume = 1;
     var attColumna='';
     var attFila ='';
     var celdaActual=null;
     var params = {startPosition:{x:2,y:2}};
-    var $hTable = $('#cuerpo-'+identificador),
+    var $hTable = $('#cuerpo__'+identificador),
         i = 0,
         x = params.startPosition.x,
         y = params.startPosition.y,
@@ -64,8 +66,8 @@ function verificarEditable(identificador,obj){
 
     function obtenerPosicion(){
         $.each(celdaActual,function(){
-            attColumna = this.getAttribute('columna').split('-');
-            attFila = this.getAttribute('fila').split('-');
+            attColumna = this.getAttribute('columna').split('__');
+            attFila = this.getAttribute('fila').split('__');
         });
         posCol = attColumna[1]-1;
         posFila = attFila[1]-1;
@@ -79,10 +81,10 @@ function verificarEditable(identificador,obj){
         if ( x < 1 ) x = 1;
         //celdaActual = $hTable.find('tr:nth-child('+(y)+')').find('td:nth-child('+(x+enume)+')');
         var pos = x+enume;
-        celdaActual = $hTable.find("[id=td-"+identificador+'-'+y+"-"+pos+"]");
+        celdaActual = $hTable.find("[id=td__"+identificador+'__'+y+"__"+pos+"]");
         celdaActual.toggleClass('selected');
-        if(numera == true)$("#btn-"+identificador+'-'+y).focus();
-        else $("#btnEditar-"+identificador).focus();
+        if(numera == true)$("#btn__"+identificador+'__'+y).focus();
+        else $("#btnEditar__"+identificador).focus();
         return celdaActual;
     }
 
@@ -91,7 +93,7 @@ function verificarEditable(identificador,obj){
         $.each(celdaActual,function(){
             attColumna = this.getAttribute('columna');
         });
-        var attPicado = attColumna.split('-');
+        var attPicado = attColumna.split('__');
         var objAux = eval("obj."+identificador+".config.editable.c"+attPicado[1]);
         if(objAux != undefined)crearElemento(elementoActual,objAux);
     }
@@ -114,7 +116,7 @@ function verificarEditable(identificador,obj){
         currentCell.toggleClass('sobre');
     });
 
-    $('#tbl-'+identificador).keydown(function(e){
+    $('#tbl__'+identificador).keydown(function(e){
         xv = x;
         yv = y;
         if (e.keyCode == 13) {
@@ -181,17 +183,16 @@ function crearTextArea(elementoActual){
 }
 
 function crearCalendario(elementoActual){
-    var input = $('<input>', {type: "date"})
+    var input = $('<input>', {type: "date",class:"datepicker"})
         .val(elementoActual.html());
     elementoActual.html(input);
     input.focus();
 }
 
 function crearCombo(elementoActual,tipo){
-    var combo = $('<select>');
+    var combo = $('<select>',{class:"browser-default"});
     $.each(tipo,function(clave,valor){
         combo.append( new Option(valor,clave) );
     });
-    combo.className="browser-default";
     elementoActual.html(combo);
 }

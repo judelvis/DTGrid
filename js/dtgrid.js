@@ -116,8 +116,8 @@
             var numera = false;
             if(arreglo.config.enumera != undefined) numera=arreglo.config.enumera;
 
-            crearCabecera(identificador,arreglo.datos.cabecera,numera);
-            crearCuerpo(identificador,arreglo.datos,numera,detalle);
+            crearCabecera(identificador,arreglo.datos.cabecera,numera,arreglo.config.accion);
+            crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion);
             if(arreglo.config.editable != undefined) {
                 btnEditable(identificador,obj);
             }
@@ -128,77 +128,117 @@
     var btnEditable = function(identificador,obj){
         if (typeof verificarEditable == 'function') {
             var icoEditar = document.createElement('button');
-            icoEditar.id='btnEditar-'+identificador;
+            icoEditar.id='btnEditar__'+identificador;
             icoEditar.style.cssText='background-color: transparent !important;border:0px;';
             var imgEditar = document.createElement('img');
             imgEditar.src='../img/editable.ico';
             imgEditar.style.cssText='width:15px;';
-            imgEditar.id = 'imgEditar-'+identificador;
+            imgEditar.id = 'imgEditar__'+identificador;
             icoEditar.appendChild(imgEditar);
-            $("#titulo-"+identificador).append(icoEditar);
+            $("#titulo__"+identificador).append(icoEditar);
             verificarEditable(identificador,obj.domTabla);
         }
     }
 
     var crearTabla = function(identificador, arreglo,div){
         var tabla = document.createElement('table');//crea la tabla
-        tabla.id = 'tbl-'+identificador;
-        tabla.className = 'hoverable striped responsive-table';
+        tabla.id = 'tbl__'+identificador;
+        tabla.className = 'hoverable  responsive-table';
         //tabla.style.cssText='position: relative;heigth:100px:';
         var titulo = tabla.createCaption();//crea caption
-        titulo.id='titulo-'+identificador;
+        titulo.id='titulo__'+identificador;
         if(arreglo.config.titulo != undefined)titulo.innerHTML = arreglo.config.titulo;
-        else titulo.innerHTML = 'tbl_'+defecto.titulo;
+        else titulo.innerHTML = 'tbl__'+defecto.titulo;
         var domCabecera = tabla.createTHead();//crea thead
-        domCabecera.id = 'cabecera-'+identificador;
+        domCabecera.id = 'cabecera__'+identificador;
         var domCuerpo = tabla.createTBody();//crea tbody
-        domCuerpo.id = 'cuerpo-'+identificador;
+        domCuerpo.id = 'cuerpo__'+identificador;
         var domPie = tabla.createTFoot();//crea tfoot
-        domPie.id = 'pie-'+identificador;
+        domPie.id = 'pie__'+identificador;
         div.appendChild(tabla);
+        if(arreglo.config.accion != undefined){
+
+        }
     }
     /*
      * Funcion que construye la cabecera
      */
-    var crearCabecera = function(identificador,datosCabecera,numera){
-        var cabeceraInicial = document.getElementById('cabecera-'+identificador);
+    var crearCabecera = function(identificador,datosCabecera,numera,accion){
+        var cabeceraInicial = document.getElementById('cabecera__'+identificador);
         var filaCabecera = cabeceraInicial.insertRow(0);//crea fila de la cabecera
-        filaCabecera.id = 'fila-cabecera-'+identificador;
+        filaCabecera.id = 'fila__cabecera-'+identificador;
         if(numera){
             var thNumera = document.createElement('th');//crea th para la numeracion
-            thNumera.id='th-numera-'+identificador;
-            thNumera.style.cssText='width:35px';
+            thNumera.id='th__numera__'+identificador;
+            thNumera.style.cssText='width:15px';
             filaCabecera.appendChild(thNumera);
         }
         var i=1;
-        crearCeldaCabecera(datosCabecera,identificador,filaCabecera);
+        crearCeldaCabecera(datosCabecera,identificador,filaCabecera,accion);
     }
     /*
      * Crea el cuerpo inicial del grid
      * param = 	identificador: determina la tabla a la cual se le va a agregar el cuerpo
      * 			datosCuerpo:arreglo con datos para contruir el cuerpo de la tabla
      */
-    var crearCuerpo= function(identificador,datosCuerpo,numera,detalle){
-        var cuerpoInicial = document.getElementById('cuerpo-'+identificador);
+    var crearCuerpo= function(identificador,datosCuerpo,numera,detalle,accion){
+        var cuerpoInicial = document.getElementById('cuerpo__'+identificador);
         var i = 1;
+        //var btnFocoFila = document.createElement('button');
+
         var btnFocoFila = document.createElement('button');
-        btnFocoFila.style.cssText = 'background-color: transparent !important;border:0px;';
+        btnFocoFila.className = "btn waves-effect waves-light blue lighten-4";
+        btnFocoFila.style.cssText ="widrh:15px;";
+        if(accion != undefined){
+            var ul = document.createElement("ul");
+            //ul.id = "accion";
+            ul.className = "dropdown-content";
+            $.each(accion,function(){
+                var li = document.createElement('li');
+                li.href="#!";
+                var item = document.createElement('i');
+                item.className=this.clase;
+                if(this.texto != undefined) item.innerHTML=this.texto;
+                li.appendChild(item);
+                li.setAttribute("ejecuta",this.ejecuta);
+                li.setAttribute("parametro",this.parametro);
+                li.setAttribute("tipo",this.tipo);
+                li.setAttribute("identificador",identificador);
+                li.className="accion";
+                ul.appendChild(li);
+            });
+            var enlace = document.createElement("a");
+            enlace.style.cssText ="color:#00b0ff;";
+            enlace.className="dropdown-button valign-wrapper";
+            enlace.href="#!";
+            var ico = document.createElement('i');
+            ico.className = "small mdi-action-toc valign-wrapper";
+            enlace.appendChild(ico);
+        }
         $.each(datosCuerpo.cuerpo,function(){
             var filaCuerpo = cuerpoInicial.insertRow(cuerpoInicial.rows.length);//crea fila del cuerpo de la tabla
-            filaCuerpo.id = 'fila-'+identificador+'-'+i;
+            filaCuerpo.id = 'fila__'+identificador+'__'+i;
             if(i==1)filaCuerpo.className='first';
             if(numera){
                 var btnClon = btnFocoFila.cloneNode(true);
-                btnClon.id='btn-'+identificador+'-'+i;
-                btnClon.innerHTML=i;
-                if(detalle.tipo != "") btnClon.setAttribute("detalle",identificador + '-' +detalle.tipo);
+                btnClon.id='btn__'+identificador+'__'+i;
+                btnClon.innerHTML='<i class="material-icons Small">'+i+'</i>';
+                if(detalle.tipo != "") btnClon.setAttribute("detalle",identificador + '__' +detalle.tipo);
                 var thNumera = document.createElement('th');//crea th para la numeracion
-                thNumera.id='th-numera-'+identificador+'-'+i;
+                thNumera.id='th__numera__'+identificador+'__'+i;
                 thNumera.appendChild(btnClon);
-                thNumera.style.cssText='width:10px';
+                thNumera.style.cssText='width:10px:padding:0px;';
                 filaCuerpo.appendChild(thNumera);
             }
             crearCelda(this,filaCuerpo,identificador,cuerpoInicial);
+            if(accion != undefined){
+                var ulClon = ul.cloneNode(true);
+                var enlaceClon = enlace.cloneNode(true);
+                ulClon.id = "accion__"+identificador+"__"+i;
+                enlaceClon.setAttribute("data-activates","accion__"+identificador+"__"+i);
+                filaCuerpo.appendChild(ulClon);
+                filaCuerpo.appendChild(enlaceClon);
+            }
             i++;
         });
         if(detalle.tipo != ''){
@@ -208,37 +248,49 @@
                 case 'dtgrid': fdetdtgrid(detalle,identificador);break;
             }
         }
+        if(accion != undefined) {
+            $.getScript("../md/js/materialize.js");
+            evaluaAccion(datosCuerpo);
+        }
     }
 
     var crearCelda = function(obj,filaCuerpo,identificador,cuerpoInicial){
         var j = 1;
         $.each(obj,function(claveColumna,valorColumna){//Recorrido De los datos de la fila para contruir los td a agregar en la fila del cuerpo
             var tdCuerpo = filaCuerpo.insertCell(filaCuerpo.cells.length);//inserta td en la fila del cuerpo
-            tdCuerpo.id='td-'+identificador+'-'+cuerpoInicial.rows.length+'-'+filaCuerpo.cells.length;
+            tdCuerpo.id='td__'+identificador+'__'+cuerpoInicial.rows.length+'__'+filaCuerpo.cells.length;
             tdCuerpo.innerHTML=valorColumna;
-            tdCuerpo.setAttribute('columna',identificador+'-'+j);//crea el atributo columna a elemetos de la cabecera
-            tdCuerpo.setAttribute('fila',identificador+'-'+cuerpoInicial.rows.length);
+            tdCuerpo.setAttribute('columna',identificador+'__'+j);//crea el atributo columna a elemetos de la cabecera
+            tdCuerpo.setAttribute('fila',identificador+'__'+cuerpoInicial.rows.length);
             j++
         });
     }
 
-    var crearCeldaCabecera = function(datosCabecera,identificador,filaCabecera){
+
+
+    var crearCeldaCabecera = function(datosCabecera,identificador,filaCabecera,accion){
         var i = 1;
         $.each(datosCabecera,function(){//Recibe como parametro del repita arreglo con datos de la cabecera
             var thCabecera = document.createElement('th');//crea th a insertar en la fila de la cabecera
-            thCabecera.id='th-cabecera-'+identificador+i;
-            thCabecera.setAttribute('columna',identificador+'-'+i);//crea el atributo columna a elemetos de la cabecera
+            thCabecera.id='th__cabecera__'+identificador+i;
+            thCabecera.setAttribute('columna',identificador+'__'+i);//crea el atributo columna a elemetos de la cabecera
             thCabecera.innerHTML=this;
             filaCabecera.appendChild(thCabecera);//agrega el th al final la fila de la cabecera
             i++;
         });
+        if(accion != undefined){
+            var thCabecera = document.createElement('th');//crea th a insertar en la fila de la cabecera
+            thCabecera.style.cssText = "width:50px;";
+            thCabecera.innerHTML="#";
+            filaCabecera.appendChild(thCabecera);//agrega el th al final la fila de la cabecera
+        }
     }
 
     var verificarOculto=function(obj){
         $.each(obj.domTabla,function(identificador,valor){
             if(valor.config.oculto != undefined){
                 $.each(valor.config.oculto,function(id,columna){
-                    $("[columna="+identificador+'-'+columna+"]").css("display","none");
+                    $("[columna="+identificador+'__'+columna+"]").css("display","none");
                 });
             }
         });
