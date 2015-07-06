@@ -183,7 +183,7 @@ function crearTextArea(elementoActual){
 }
 
 function crearCalendario(elementoActual){
-    var input = $('<input>', {type: "date",class:"datepicker"})
+    var input = $('<input>', {type: "date"})
         .val(elementoActual.html());
     elementoActual.html(input);
     input.focus();

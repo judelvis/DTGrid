@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../js/dtgrid.js"></script>
     <script type="text/javascript" src="../js/detalle.js"></script>
     <script type="text/javascript" src="../js/editar.js"></script>
-
+    <script type="text/javascript" src="../js/paginador.js"></script>
 
     <script>
         $(function () {
@@ -22,8 +22,29 @@
                 'titulo': 'Tabla1',
                 "detalle": {"tipo": "pre"},
                 'editable': {'c1': 'texto', 'c3': 'texto', 'c4': 'calendario'},
-                "accion":[{"ejecuta":"primera_funcion","parametro":[1,3],"tipo":"script","clase":"mdi-action-store"},{"ejecuta":"segunda_funcion","parametro":[],"tipo":"script","clase":"mdi-action-done"},{"ejecuta":"primera_funcion","parametro":[1,3],"tipo":"script","clase":"mdi-action-book"},{"ejecuta":"segunda_funcion","parametro":[],"tipo":"script","clase":"mdi-action-delete","texto":"Borrar"}]
-            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'}}]);
+                "accion": [{
+                    "ejecuta": "primera_funcion",
+                    "tipo": "script",
+                    "clase": "mdi-action-store",
+                    "parametro": [2, 4]
+                }, {
+                    "ejecuta": "accion.php",
+                    "parametro": [],
+                    "tipo": "php",
+                    "clase": "mdi-action-done"
+                }, {
+                    "ejecuta": "primera_funcion",
+                    "parametro": [1, 3],
+                    "tipo": "script",
+                    "clase": "mdi-action-book"
+                }, {
+                    "ejecuta": "segunda_funcion",
+                    "parametro": [2],
+                    "tipo": "script",
+                    "clase": "mdi-action-delete",
+                    "texto": "Borrar"
+                }]
+            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'}},{"titulo":"Titulo de la tabla sencilla"}]);
             var para = 'cedula=17456121';
             var datos3 = {'tipoOrigen': 'php', 'rutaObjeto': 'origenphp.php', 'parametro': para};
             var datosCombo = {'0': 'Venezuela', '1': 'Provincial'};
@@ -32,7 +53,8 @@
                 'oculto': [2],
                 "detalle": {"tipo": "post", "ruta": 'detalle.php', "parametro": [1]},
                 'editable': {'c4': 'calendario', 'c5': datosCombo},
-                'enumera': true
+                'enumera': true,
+                'paginador': 10
             }]);
             var datos4 = {'tipoOrigen': 'php', 'rutaObjeto': 'origenphp2.php'};
             var datos5 = {'tipoOrigen': 'php', 'rutaObjeto': 'detalle2.php'};
@@ -46,7 +68,29 @@
             var configDetalle = {
                 'titulo': 'Facturass',
                 'editable': {'c1': 'texto'},
-                "accion":[{"ejecuta":"primera_funcion","parametro":[1,3],"tipo":"script","clase":"mdi-action-store"},{"ejecuta":"segunda_funcion","parametro":[],"tipo":"script","clase":"mdi-action-done"},{"ejecuta":"primera_funcion","parametro":[1,3],"tipo":"script","clase":"mdi-action-book"},{"ejecuta":"segunda_funcion","parametro":[],"tipo":"script","clase":"mdi-action-delete","texto":"Borrar"}],
+                "accion": [{
+                    "ejecuta": "primera_funcion",
+                    "parametro": [1, 3],
+                    "tipo": "script",
+                    "clase": "mdi-action-store",
+                    "texto": "prueba"
+                }, {
+                    "ejecuta": "segunda_funcion",
+                    "parametro": [],
+                    "tipo": "script",
+                    "clase": "mdi-action-done"
+                }, {
+                    "ejecuta": "primera_funcion",
+                    "parametro": [1, 3],
+                    "tipo": "script",
+                    "clase": "mdi-action-book"
+                }, {
+                    "ejecuta": "segunda_funcion",
+                    "parametro": [],
+                    "tipo": "script",
+                    "clase": "mdi-action-delete",
+                    "texto": "Borrar"
+                }],
                 'detalle': {'tipo': 'post', 'ruta': 'detalle.php', 'parametro': [6, 1]}
             };
             $("#det_1").dtgrid(datos4, {
@@ -57,6 +101,10 @@
 
 
         });
+
+        function primera_funcion(datos) {
+            alert("primer dato:" + datos[0] + "**segundo dato:" + datos[1]);
+        }
     </script>
     <script type="text/javascript" src="../js/accion.js"></script>
     <script type="text/javascript" src="../md/js/materialize.min.js"></script>
@@ -87,13 +135,6 @@
 
 
     <div id='det_1' class="card">Prueba Grid Detalle Grid (det)</div>
-    <div id="boton_flotante">
-    <ul id="dropdown2" class="dropdown-content btn" >
-        <li><a href="#!"><i class="small mdi-action-3d-rotation"></i></a></li>
-        <li><a href="#!"><i class="samll mdi-action-input"></i></a></li>
-        <li><a href="#!"><i class="mdi-action-flip-to-front"></i></a></li>
-    </ul>
-    <a class="dropdown-button" style="color:#000000;" href="#!" data-activates="dropdown2"><i class="medium mdi-action-toc center blue accent-3"></i></a></div>
 </body>
 
 </html>

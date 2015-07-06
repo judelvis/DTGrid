@@ -2,7 +2,7 @@
 include('../datos/coneccion.php');
 $tablas = array();
 mysql_query("SET NAMES 'utf8'");
-$resultado = mysql_query('SELECT * from t_clientes_creditos limit 10');
+$resultado = mysql_query('SELECT * from t_clientes_creditos limit 100');
 $cuerpoConsulta = array();
 $cabeceraConsulta = array('Cedula','Contrato','Factura','Fecha Incio Cobro','Bancos');
 while ($fila = mysql_fetch_assoc($resultado)) {

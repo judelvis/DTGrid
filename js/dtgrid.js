@@ -5,9 +5,8 @@
         excel:false,
         exceldetalle:false,
         enumera:false,
-        paginador:false,
         clase:false,
-        editable:false
+        editable:false,
     };
 
     /*
@@ -156,8 +155,15 @@
         var domPie = tabla.createTFoot();//crea tfoot
         domPie.id = 'pie__'+identificador;
         div.appendChild(tabla);
+        if(arreglo.config.paginador != undefined){
+            construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
+            alert("sale");
+        }
         if(arreglo.config.accion != undefined){
-
+            var respuestas = document.createElement("div");
+            respuestas.id ="respuestas__"+identificador;
+            respuestas.className ="modal";
+            div.appendChild(respuestas);
         }
     }
     /*
@@ -197,14 +203,14 @@
                 var li = document.createElement('li');
                 li.href="#!";
                 var item = document.createElement('i');
-                item.className=this.clase;
+                if(this.clase != undefined) item.className=this.clase;
                 if(this.texto != undefined) item.innerHTML=this.texto;
                 li.appendChild(item);
                 li.setAttribute("ejecuta",this.ejecuta);
                 li.setAttribute("parametro",this.parametro);
                 li.setAttribute("tipo",this.tipo);
                 li.setAttribute("identificador",identificador);
-                li.className="accion";
+                li.className=identificador;
                 ul.appendChild(li);
             });
             var enlace = document.createElement("a");
@@ -250,7 +256,7 @@
         }
         if(accion != undefined) {
             $.getScript("../md/js/materialize.js");
-            evaluaAccion(datosCuerpo);
+            evaluaAccion(datosCuerpo,identificador);
         }
     }
 
