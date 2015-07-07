@@ -14,11 +14,20 @@ function evaluaAccion(obj,identificador){
             })
         }
         ejecutaAccion(this.getAttribute("tipo"),this.getAttribute("ejecuta"),JSON.stringify(datos),identificador);
+        var ocultar = this.getAttribute("ocultar");
+        if(ocultar == "si"){
+            var filaOcultar = this.parentNode.getAttribute("fila");
+            $("#"+filaOcultar).toggleClass("hide");
+            var det = filaOcultar.substring(6);
+            $("#"+det).toggleClass("hide");
+            $("#"+det+"__detalle").toggleClass("hide");
+
+        }
     });
 }
 
 function ejecutaAccion(tipo,funcion,datos,identificador){
-    //alert(tipo+"**"+funcion+"**"+datos);
+    //alert(identificador);
     switch (tipo){
         case "script":
             eval(funcion+"("+datos+");");

@@ -157,7 +157,6 @@
         div.appendChild(tabla);
         if(arreglo.config.paginador != undefined){
             construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
-            alert("sale");
         }
         if(arreglo.config.accion != undefined){
             var respuestas = document.createElement("div");
@@ -165,6 +164,7 @@
             respuestas.className ="modal";
             div.appendChild(respuestas);
         }
+
     }
     /*
      * Funcion que construye la cabecera
@@ -205,11 +205,14 @@
                 var item = document.createElement('i');
                 if(this.clase != undefined) item.className=this.clase;
                 if(this.texto != undefined) item.innerHTML=this.texto;
+
                 li.appendChild(item);
                 li.setAttribute("ejecuta",this.ejecuta);
                 li.setAttribute("parametro",this.parametro);
                 li.setAttribute("tipo",this.tipo);
                 li.setAttribute("identificador",identificador);
+                li.setAttribute("ocultar","no");
+                if(this.ocultar != undefined) li.setAttribute("ocultar","si");
                 li.className=identificador;
                 ul.appendChild(li);
             });
@@ -240,8 +243,9 @@
             if(accion != undefined){
                 var ulClon = ul.cloneNode(true);
                 var enlaceClon = enlace.cloneNode(true);
-                ulClon.id = "accion__"+identificador+"__"+i;
-                enlaceClon.setAttribute("data-activates","accion__"+identificador+"__"+i);
+                ulClon.id = "accion__"+filaCuerpo.id;
+                ulClon.setAttribute("fila",filaCuerpo.id);
+                enlaceClon.setAttribute("data-activates","accion__"+filaCuerpo.id);
                 filaCuerpo.appendChild(ulClon);
                 filaCuerpo.appendChild(enlaceClon);
             }
@@ -255,7 +259,7 @@
             }
         }
         if(accion != undefined) {
-            $.getScript("../md/js/materialize.js");
+            $.getScript("/DTGrid/md/js/materialize.js");
             evaluaAccion(datosCuerpo,identificador);
         }
     }
@@ -315,6 +319,7 @@
             'origen':origen,
             'opciones':options
         };
+
         construir(objDtgrid,div);
         return this;
     };

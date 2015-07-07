@@ -26,7 +26,8 @@
                     "ejecuta": "primera_funcion",
                     "tipo": "script",
                     "clase": "mdi-action-store",
-                    "parametro": [2, 4]
+                    "parametro": [2, 4],
+                    "ocultar":true
                 }, {
                     "ejecuta": "accion.php",
                     "parametro": [],
@@ -73,7 +74,8 @@
                     "parametro": [1, 3],
                     "tipo": "script",
                     "clase": "mdi-action-store",
-                    "texto": "prueba"
+                    "texto": "prueba",
+                    "ocultar":true
                 }, {
                     "ejecuta": "segunda_funcion",
                     "parametro": [],
@@ -89,8 +91,8 @@
                     "parametro": [],
                     "tipo": "script",
                     "clase": "mdi-action-delete",
-                    "texto": "Borrar"
-                }],
+                    "texto": "Borrar",
+                                  }],
                 'detalle': {'tipo': 'post', 'ruta': 'detalle.php', 'parametro': [6, 1]}
             };
             $("#det_1").dtgrid(datos4, {
@@ -130,11 +132,11 @@
         ?>
         <p id='objeto_local' class="truncate"><?php echo json_encode($tablas, true); ?></p>
     </div>
-    <div id='otro' class="card-panel">Prueba de Grid Multiples en un Div con origen objeto local (otro)</div>
-    <div id='prueba' class="card-panel">Grid Con Detalle Post (prueba)</div>
+    <div id='otro'>Prueba de Grid Multiples en un Div con origen objeto local (otro)</div><br>
+    <div id='prueba' >Grid Con Detalle Post (prueba)</div><br>
 
 
-    <div id='det_1' class="card">Prueba Grid Detalle Grid (det)</div>
+    <div id='det_1' >Prueba Grid Detalle Grid (det)</div>
 </body>
 
 </html>
