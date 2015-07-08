@@ -116,7 +116,7 @@
             if(arreglo.config.enumera != undefined) numera=arreglo.config.enumera;
 
             crearCabecera(identificador,arreglo.datos.cabecera,numera,arreglo.config.accion);
-            crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion);
+            crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion,arreglo.config.clase);
             if(arreglo.config.editable != undefined) {
                 btnEditable(identificador,obj);
             }
@@ -129,8 +129,8 @@
             var icoEditar = document.createElement('button');
             icoEditar.id='btnEditar__'+identificador;
             icoEditar.style.cssText='background-color: transparent !important;border:0px;';
-            var imgEditar = document.createElement('img');
-            imgEditar.src='../img/editable.ico';
+            var imgEditar = document.createElement('i');
+            imgEditar.className = "mdi-content-create";
             imgEditar.style.cssText='width:15px;';
             imgEditar.id = 'imgEditar__'+identificador;
             icoEditar.appendChild(imgEditar);
@@ -150,6 +150,7 @@
         else titulo.innerHTML = 'tbl__'+defecto.titulo;
         var domCabecera = tabla.createTHead();//crea thead
         domCabecera.id = 'cabecera__'+identificador;
+        if(arreglo.config.clase != undefined) domCabecera.className = arreglo.config.clase;
         var domCuerpo = tabla.createTBody();//crea tbody
         domCuerpo.id = 'cuerpo__'+identificador;
         var domPie = tabla.createTFoot();//crea tfoot
@@ -187,14 +188,13 @@
      * param = 	identificador: determina la tabla a la cual se le va a agregar el cuerpo
      * 			datosCuerpo:arreglo con datos para contruir el cuerpo de la tabla
      */
-    var crearCuerpo= function(identificador,datosCuerpo,numera,detalle,accion){
+    var crearCuerpo= function(identificador,datosCuerpo,numera,detalle,accion,clase){
         var cuerpoInicial = document.getElementById('cuerpo__'+identificador);
         var i = 1;
         //var btnFocoFila = document.createElement('button');
-
         var btnFocoFila = document.createElement('button');
-        btnFocoFila.className = "btn waves-effect waves-light blue lighten-4";
-        btnFocoFila.style.cssText ="widrh:15px;";
+        btnFocoFila.style.cssText = 'background-color: transparent !important;border:0px;';
+        btnFocoFila.className ="waves-effect";
         if(accion != undefined){
             var ul = document.createElement("ul");
             //ul.id = "accion";
@@ -217,26 +217,34 @@
                 ul.appendChild(li);
             });
             var enlace = document.createElement("a");
-            enlace.style.cssText ="color:#00b0ff;";
+            //enlace.style.cssText ="color:#00b0ff;";
             enlace.className="dropdown-button valign-wrapper";
+            if(clase != undefined){
+                var cssTexto = clase.split(" ");
+                var cadena_css = "dropdown-button valign-wrapper ";
+                for(var aux = 0 ; aux < cssTexto.length;aux++){
+                    cadena_css += cssTexto[aux]+"-text ";
+                }
+                enlace.className = cadena_css;
+            }
             enlace.href="#!";
             var ico = document.createElement('i');
-            ico.className = "small mdi-action-toc valign-wrapper";
+            ico.className = "small mdi-action-toc";
             enlace.appendChild(ico);
         }
         $.each(datosCuerpo.cuerpo,function(){
             var filaCuerpo = cuerpoInicial.insertRow(cuerpoInicial.rows.length);//crea fila del cuerpo de la tabla
             filaCuerpo.id = 'fila__'+identificador+'__'+i;
-            if(i==1)filaCuerpo.className='first';
             if(numera){
                 var btnClon = btnFocoFila.cloneNode(true);
                 btnClon.id='btn__'+identificador+'__'+i;
-                btnClon.innerHTML='<i class="material-icons Small">'+i+'</i>';
+                btnClon.innerHTML=i;
                 if(detalle.tipo != "") btnClon.setAttribute("detalle",identificador + '__' +detalle.tipo);
                 var thNumera = document.createElement('th');//crea th para la numeracion
                 thNumera.id='th__numera__'+identificador+'__'+i;
                 thNumera.appendChild(btnClon);
-                thNumera.style.cssText='width:10px:padding:0px;';
+                thNumera.className = "waves-light blue lighten-4 center";
+                if(clase != undefined) thNumera.className = clase+" center";
                 filaCuerpo.appendChild(thNumera);
             }
             crearCelda(this,filaCuerpo,identificador,cuerpoInicial);

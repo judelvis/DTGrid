@@ -3,7 +3,7 @@
 <head>
     <!--<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">!-->
     <link rel="stylesheet" href="../css/dataTable.css">
-    <link type="text/css" rel="stylesheet" href="../md/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../md/css/materialize.min.css" media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script type="text/javascript" src="../js/include/jquery-2.1.3.min.js"></script>
 
@@ -20,8 +20,10 @@
             var datos2 = {'tipoOrigen': 'var', 'rutaObjeto': json, 'parametro': ''};
             $("#otro").dtgrid(datos2, [{
                 'titulo': 'Tabla1',
+                'clase' : "brown darken-4  light-green-text lighten-4-text",
                 "detalle": {"tipo": "pre"},
                 'editable': {'c1': 'texto', 'c3': 'texto', 'c4': 'calendario'},
+                "paginador":2,
                 "accion": [{
                     "ejecuta": "primera_funcion",
                     "tipo": "script",
