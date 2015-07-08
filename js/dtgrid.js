@@ -116,7 +116,10 @@
             if(arreglo.config.enumera != undefined) numera=arreglo.config.enumera;
 
             crearCabecera(identificador,arreglo.datos.cabecera,numera,arreglo.config.accion);
-            crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion,arreglo.config.clase);
+            crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion,arreglo.config.clase,arreglo.config.paginador);
+            if(arreglo.config.paginador != undefined){
+                construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
+            }
             if(arreglo.config.editable != undefined) {
                 btnEditable(identificador,obj);
             }
@@ -156,9 +159,6 @@
         var domPie = tabla.createTFoot();//crea tfoot
         domPie.id = 'pie__'+identificador;
         div.appendChild(tabla);
-        if(arreglo.config.paginador != undefined){
-            construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
-        }
         if(arreglo.config.accion != undefined){
             var respuestas = document.createElement("div");
             respuestas.id ="respuestas__"+identificador;
@@ -188,7 +188,7 @@
      * param = 	identificador: determina la tabla a la cual se le va a agregar el cuerpo
      * 			datosCuerpo:arreglo con datos para contruir el cuerpo de la tabla
      */
-    var crearCuerpo= function(identificador,datosCuerpo,numera,detalle,accion,clase){
+    var crearCuerpo= function(identificador,datosCuerpo,numera,detalle,accion,clase,paginador){
         var cuerpoInicial = document.getElementById('cuerpo__'+identificador);
         var i = 1;
         //var btnFocoFila = document.createElement('button');
@@ -232,9 +232,20 @@
             ico.className = "small mdi-action-toc";
             enlace.appendChild(ico);
         }
+        var auxPag = 0;
+        var contPag = 1;
         $.each(datosCuerpo.cuerpo,function(){
             var filaCuerpo = cuerpoInicial.insertRow(cuerpoInicial.rows.length);//crea fila del cuerpo de la tabla
             filaCuerpo.id = 'fila__'+identificador+'__'+i;
+            if(paginador != undefined){
+                auxPag++;
+                filaCuerpo.setAttribute("pagina",identificador+contPag);
+                if(auxPag == paginador){
+                    contPag++;
+                    auxPag=0;
+                }
+
+            }
             if(numera){
                 var btnClon = btnFocoFila.cloneNode(true);
                 btnClon.id='btn__'+identificador+'__'+i;

@@ -34,6 +34,8 @@ var crearDetalle = function(id){
     var tds=$("#"+id+":first td").length;
     var idPicado = id.split('__');
     var tr = document.createElement("tr");
+    var pagi = document.getElementById(id).getAttribute("pagina");
+    tr.setAttribute("pagina",pagi);
     if(idPicado.length==3)tr.id=idPicado[1]+'__'+idPicado[2]+'__detalle';
     else tr.id=idPicado[1]+'__'+idPicado[2]+'__'+idPicado[3]+'__'+idPicado[4];
     var tdespacio = tr.insertCell(0);
