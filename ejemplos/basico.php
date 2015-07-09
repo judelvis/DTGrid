@@ -14,6 +14,7 @@
 
     <script>
         $(function () {
+            var datosCombo = {'0': 'Venezuela', '1': 'Provincial'};
             /*var datos = {'tipoOrigen':'script','rutaObjeto':'../js/estatico/datos.js','parametro':'objetoNuevo'};
              $("#prueba").dtgrid(datos,[{'titulo':'titulo1','enumera':false,'editable':{'c4':'texto','c4':'calendario'}}]);*/
             var json = jQuery.parseJSON($("#objeto_local").html());
@@ -22,8 +23,7 @@
                 'titulo': 'Tabla1',
                 'clase' : "brown darken-4  light-green-text lighten-4-text",
                 "detalle": {"tipo": "pre"},
-                'editable': {'c1': 'texto', 'c3': 'texto', 'c4': 'calendario'},
-                "paginador":2,
+                'editable': {'c1': 'texto', 'c3': 'texto', 'c4': datosCombo},
                 "accion": [{
                     "ejecuta": "primera_funcion",
                     "tipo": "script",
@@ -50,7 +50,7 @@
             }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'}},{"titulo":"Titulo de la tabla sencilla"}]);
             var para = 'cedula=17456121';
             var datos3 = {'tipoOrigen': 'php', 'rutaObjeto': 'origenphp.php', 'parametro': para};
-            var datosCombo = {'0': 'Venezuela', '1': 'Provincial'};
+
             $("#prueba").dtgrid(datos3, [{
                 'titulo': 'titulo1',
                 'oculto': [2],

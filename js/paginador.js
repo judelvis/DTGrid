@@ -5,6 +5,7 @@ function construirPaginador(div,identificador,total,tam){
     div.appendChild(pagNuevo);
     var paginas = Math.floor(total) / tam;
     var atras = document.createElement("li");
+    atras.setAttribute("pag",-1);
     atras.className="disabled waves-effect";
     var i = document.createElement("i");
     i.className = "mdi-hardware-keyboard-arrow-left";
@@ -27,22 +28,40 @@ function construirPaginador(div,identificador,total,tam){
         li.appendChild(a);
     }
     var adelante = document.createElement("li");
+    adelante.setAttribute("pag",-2);
     var ia = document.createElement("i");
     ia.className = "mdi-hardware-keyboard-arrow-right";
     adelante.appendChild(ia);
     pagNuevo.appendChild(adelante);
 
-    cambiarPaginas(identificador);
+    cambiarPaginas(identificador,paginas);
 }
 
-function cambiarPaginas(iden){
+function cambiarPaginas(iden,total){
     $("#pag__"+iden+" li").click(function (event) {
         var pag = this.getAttribute("pag");
         var paginaActual = $("#pag__"+iden).find(".active").index();
+        if(pag == -1) {
+            if(paginaActual == 1) return 0;
+            pag = paginaActual - 1;
+
+        }
+        if(pag == -2) {
+            if(paginaActual == total) return 0;
+            pag = paginaActual + 1;
+
+        }
         $("#pag__"+iden+paginaActual).toggleClass("active");
         $("[pagina="+iden+paginaActual).toggleClass("hide");
         $("#pag__"+iden+pag).toggleClass("active");
         $("[pagina="+iden+pag).toggleClass("hide");
 
     });
+}
+
+function cambiarPaginasTeclado(paga,pagn){
+    $("#pag__"+paga).toggleClass("active");
+    $("[pagina="+paga).toggleClass("hide");
+    $("#pag__"+pagn).toggleClass("active");
+    $("[pagina="+pagn).toggleClass("hide");
 }

@@ -26,9 +26,12 @@ function verificarEditable(identificador,obj){
             y: $hTable.find('tr').length,
             x:$hTable.find('tr:last td').length
         };
+    $hTable.find('tr:nth-child(1)').find('td:nth-child(2)').toggleClass('selected');
+    existePag = "";
     selecionarCelda();
 
     function evaluarHijos(){
+//        alert(celdaActual.attr("id"));
         if(celdaActual.children().length > 0) {
             restaurarValor();
             cambiarEstilo();
@@ -72,17 +75,39 @@ function verificarEditable(identificador,obj){
         posCol = attColumna[1]-1;
         posFila = attFila[1]-1;
     }
+    function selecionarCelda(celda){
+        if(celda==undefined){
+            celdaActual = $hTable.find(".selected");
+            if(numera == true)$("#btn__"+identificador+'__'+1).focus();
+            else $("#btnEditar__"+identificador).focus();
 
+        }else{
+            celdaActual = $("#"+celda.id);
+            celdaActual.toggleClass('selected');
+            var iden = celdaActual.attr("fila");
+            if(numera == true)$("#btn__"+iden).focus();
+            else $("#btnEditar__"+identificador).focus();
+        }
+        existePag = celdaActual.parent().attr("pagina");
+        return celdaActual;
+    }
 
-    function selecionarCelda(){
+    function selecionarCelda2(){
         if ( y > max.y ) y = max.y;
         if ( x > max.x ) x = max.x;
         if ( y < 1 ) y = 1;
         if ( x < 1 ) x = 1;
-        //celdaActual = $hTable.find('tr:nth-child('+(y)+')').find('td:nth-child('+(x+enume)+')');
         var pos = x+enume;
         celdaActual = $hTable.find("[id=td__"+identificador+'__'+y+"__"+pos+"]");
         celdaActual.toggleClass('selected');
+        if(existePag != undefined){
+            var pag = celdaActual.parent().attr("pagina");
+            if(pag != existePag) {
+                cambiarPaginasTeclado(existePag,pag);
+                existePag = pag;
+            }
+        }
+
         if(numera == true)$("#btn__"+identificador+'__'+y).focus();
         else $("#btnEditar__"+identificador).focus();
         return celdaActual;
@@ -104,16 +129,11 @@ function verificarEditable(identificador,obj){
         yv = y;
         x = ($hTable.find('td').index(this) % (max.x) + 1);
         y = ($hTable.find('tr').index($(this).parent()) + 1);
-        edit(selecionarCelda());
+        edit(selecionarCelda(this));
     });
 
     $hTable.find('td').hover( function () {
-        xv = x;
-        yv = y;
-        xs = ($hTable.find('td').index(this) % (max.x) + 1);
-        ys = ($hTable.find('tr').index($(this).parent()) + 1);
-        currentCell = $hTable.find('tr:nth-child('+(ys)+')').find('td:nth-child('+(xs+enume)+')');
-        currentCell.toggleClass('sobre');
+        $("#"+this.id).toggleClass('sobre');
     });
 
     $('#tbl__'+identificador).keydown(function(e){
@@ -125,7 +145,7 @@ function verificarEditable(identificador,obj){
                 edit(celdaActual);
             }else{
                 evaluarHijos()
-                selecionarCelda()
+                selecionarCelda2()
             }
         } else if (e.keyCode >= 37 && e.keyCode <= 40  ) {
             evaluarHijos();
@@ -139,7 +159,7 @@ function verificarEditable(identificador,obj){
                 case 40: y++;
                     break;
             }
-            selecionarCelda();
+            selecionarCelda2();
             return false;
         }
     });
