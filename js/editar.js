@@ -110,13 +110,8 @@ function verificarEditable(identificador,obj){
     $hTable.find('td').hover( function () {
         xv = x;
         yv = y;
-        xs = ($hTable.find('tr:last td').length);
-
-
-
-
+        xs = ($hTable.find('td').index(this) % (max.x) + 1);
         ys = ($hTable.find('tr').index($(this).parent()) + 1);
-        alert(xs+"**"+ys);
         currentCell = $hTable.find('tr:nth-child('+(ys)+')').find('td:nth-child('+(xs+enume)+')');
         currentCell.toggleClass('sobre');
     });
