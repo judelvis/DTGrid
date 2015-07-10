@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../js/detalle.js"></script>
     <script type="text/javascript" src="../js/editar.js"></script>
     <script type="text/javascript" src="../js/paginador.js"></script>
+    <script type="text/javascript" src="../js/filtro.js"></script>
 
     <script>
         $(function () {
@@ -21,6 +22,7 @@
             var datos2 = {'tipoOrigen': 'var', 'rutaObjeto': json, 'parametro': ''};
             $("#otro").dtgrid(datos2, [{
                 'titulo': 'Tabla1',
+                "filtro":[1],
                 'clase' : "brown darken-4  light-green-text lighten-4-text",
                 "detalle": {"tipo": "pre"},
                 'editable': {'c1': 'texto', 'c3': 'texto', 'c4': datosCombo},
@@ -53,6 +55,8 @@
 
             $("#prueba").dtgrid(datos3, [{
                 'titulo': 'titulo1',
+                'clase':"indigo",
+                'filtro': [1,3],
                 'oculto': [2],
                 "detalle": {"tipo": "post", "ruta": 'detalle.php', "parametro": [1]},
                 'editable': {'c4': 'calendario', 'c5': datosCombo},

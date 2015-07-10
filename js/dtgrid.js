@@ -120,6 +120,9 @@
             if(arreglo.config.paginador != undefined){
                 construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
             }
+            if(arreglo.config.filtro != undefined){
+                construirFiltro(identificador,arreglo.config.filtro);
+            }
             if(arreglo.config.editable != undefined) {
                 btnEditable(identificador,obj);
             }
@@ -153,11 +156,11 @@
         else titulo.innerHTML = 'tbl__'+defecto.titulo;
         var domCabecera = tabla.createTHead();//crea thead
         domCabecera.id = 'cabecera__'+identificador;
-        if(arreglo.config.clase != undefined) domCabecera.className = arreglo.config.clase;
         var domCuerpo = tabla.createTBody();//crea tbody
         domCuerpo.id = 'cuerpo__'+identificador;
         var domPie = tabla.createTFoot();//crea tfoot
         domPie.id = 'pie__'+identificador;
+        if(arreglo.config.clase != undefined) domCabecera.className = arreglo.config.clase;
         div.appendChild(tabla);
         if(arreglo.config.accion != undefined){
             var respuestas = document.createElement("div");

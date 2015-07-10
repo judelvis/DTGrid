@@ -2,7 +2,13 @@ function construirPaginador(div,identificador,total,tam){
     var pagNuevo = document.createElement("ul");
     pagNuevo.id= "pag__"+identificador;
     pagNuevo.className= "pagination";
-    div.appendChild(pagNuevo);
+    var pie = document.getElementById("pie__"+identificador);
+    filaPie= pie.insertRow(pie.rows.length);
+    celdaPie = filaPie.insertCell(filaPie.cells.length);
+    filaCuerpo = document.getElementById('fila__'+identificador+'__1')
+    celdaPie.colSpan =  filaCuerpo.cells.length;
+    //div.appendChild(pagNuevo);
+    celdaPie.appendChild(pagNuevo);
     var paginas = Math.floor(total) / tam;
     var atras = document.createElement("li");
     atras.setAttribute("pag",-1);
@@ -52,7 +58,8 @@ function cambiarPaginas(iden,total){
 
         }
         $("#pag__"+iden+paginaActual).toggleClass("active");
-        $("[pagina="+iden+paginaActual).toggleClass("hide");
+        //$("[pagina="+iden+paginaActual).toggleClass("hide");
+        $("#cuerpo__"+iden).find("tr").addClass("hide");
         $("#pag__"+iden+pag).toggleClass("active");
         $("[pagina="+iden+pag).toggleClass("hide");
 
