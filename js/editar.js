@@ -103,7 +103,7 @@ function verificarEditable(identificador,obj){
         if(existePag != undefined){
             var pag = celdaActual.parent().attr("pagina");
             if(pag != existePag) {
-                cambiarPaginasTeclado(existePag,pag);
+                cambiarPaginasTeclado(existePag,pag,identificador);
                 existePag = pag;
             }
         }

@@ -58,7 +58,6 @@ function cambiarPaginas(iden,total){
 
         }
         $("#pag__"+iden+paginaActual).toggleClass("active");
-        //$("[pagina="+iden+paginaActual).toggleClass("hide");
         $("#cuerpo__"+iden).find("tr").addClass("hide");
         $("#pag__"+iden+pag).toggleClass("active");
         $("[pagina="+iden+pag).toggleClass("hide");
@@ -66,9 +65,9 @@ function cambiarPaginas(iden,total){
     });
 }
 
-function cambiarPaginasTeclado(paga,pagn){
+function cambiarPaginasTeclado(paga,pagn,identificador){
     $("#pag__"+paga).toggleClass("active");
-    $("[pagina="+paga).toggleClass("hide");
+    $("#cuerpo__"+identificador).find("tr").addClass("hide");
     $("#pag__"+pagn).toggleClass("active");
     $("[pagina="+pagn).toggleClass("hide");
 }

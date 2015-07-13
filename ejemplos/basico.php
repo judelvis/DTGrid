@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../js/editar.js"></script>
     <script type="text/javascript" src="../js/paginador.js"></script>
     <script type="text/javascript" src="../js/filtro.js"></script>
+    <script type="text/javascript" src="../js/enlace.js"></script>
 
     <script>
         $(function () {
@@ -49,7 +50,8 @@
                     "clase": "mdi-action-delete",
                     "texto": "Borrar"
                 }]
-            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'}},{"titulo":"Titulo de la tabla sencilla"}]);
+            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'}},
+                {"titulo":"Titulo de la tabla sencilla","enlace":[{"columna":"1","url":"basico_origen_php.php","target":"_blank","codeigniter":true},{"columna":"3","url":"basico_origen_script.php"}]}]);
             var para = 'cedula=17456121';
             var datos3 = {'tipoOrigen': 'php', 'rutaObjeto': 'origenphp.php', 'parametro': para};
 

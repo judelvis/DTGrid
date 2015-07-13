@@ -114,18 +114,12 @@
             }
             var numera = false;
             if(arreglo.config.enumera != undefined) numera=arreglo.config.enumera;
-
             crearCabecera(identificador,arreglo.datos.cabecera,numera,arreglo.config.accion);
             crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion,arreglo.config.clase,arreglo.config.paginador);
-            if(arreglo.config.paginador != undefined){
-                construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
-            }
-            if(arreglo.config.filtro != undefined){
-                construirFiltro(identificador,arreglo.config.filtro);
-            }
-            if(arreglo.config.editable != undefined) {
-                btnEditable(identificador,obj);
-            }
+            if(arreglo.config.paginador != undefined)construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
+            if(arreglo.config.filtro != undefined)construirFiltro(identificador,arreglo.config.filtro);
+            if(arreglo.config.enlace != undefined)construirEnlace(identificador,arreglo.config.enlace);
+            if(arreglo.config.editable != undefined)btnEditable(identificador,obj);
         });
         verificarOculto(obj);
     }
@@ -199,41 +193,58 @@
         btnFocoFila.style.cssText = 'background-color: transparent !important;border:0px;';
         btnFocoFila.className ="waves-effect";
         if(accion != undefined){
-            var ul = document.createElement("ul");
-            //ul.id = "accion";
-            ul.className = "dropdown-content";
-            $.each(accion,function(){
-                var li = document.createElement('li');
-                li.href="#!";
-                var item = document.createElement('i');
-                if(this.clase != undefined) item.className=this.clase;
-                if(this.texto != undefined) item.innerHTML=this.texto;
+            if(accion.length > 1){
+                var ul = document.createElement("ul");
+                ul.className = "dropdown-content";
+                $.each(accion,function(){
+                    var li = document.createElement('li');
+                    li.href="#!";
+                    var item = document.createElement('i');
+                    if(this.clase != undefined) item.className=this.clase;
+                    if(this.texto != undefined) item.innerHTML=this.texto;
 
-                li.appendChild(item);
-                li.setAttribute("ejecuta",this.ejecuta);
-                li.setAttribute("parametro",this.parametro);
-                li.setAttribute("tipo",this.tipo);
-                li.setAttribute("identificador",identificador);
-                li.setAttribute("ocultar","no");
-                if(this.ocultar != undefined) li.setAttribute("ocultar","si");
-                li.className=identificador;
-                ul.appendChild(li);
-            });
-            var enlace = document.createElement("a");
-            //enlace.style.cssText ="color:#00b0ff;";
-            enlace.className="dropdown-button valign-wrapper";
-            if(clase != undefined){
-                var cssTexto = clase.split(" ");
-                var cadena_css = "dropdown-button valign-wrapper ";
-                for(var aux = 0 ; aux < cssTexto.length;aux++){
-                    cadena_css += cssTexto[aux]+"-text ";
+                    li.appendChild(item);
+                    li.setAttribute("ejecuta",this.ejecuta);
+                    li.setAttribute("parametro",this.parametro);
+                    li.setAttribute("tipo",this.tipo);
+                    li.setAttribute("identificador",identificador);
+                    li.setAttribute("ocultar","no");
+                    if(this.ocultar != undefined) li.setAttribute("ocultar","si");
+                    li.className=identificador;
+                    ul.appendChild(li);
+                });
+                var enlace = document.createElement("a");
+                //enlace.style.cssText ="color:#00b0ff;";
+                enlace.className="dropdown-button valign-wrapper";
+                if(clase != undefined){
+                    var cssTexto = clase.split(" ");
+                    var cadena_css = "dropdown-button valign-wrapper ";
+                    for(var aux = 0 ; aux < cssTexto.length;aux++){
+                        cadena_css += cssTexto[aux]+"-text ";
+                    }
+                    enlace.className = cadena_css;
                 }
-                enlace.className = cadena_css;
+                enlace.href="#!";
+                var ico = document.createElement('i');
+                ico.className = "small mdi-action-toc";
+                enlace.appendChild(ico);
+            }else{
+                var enlace = document.createElement("a");
+                var item = document.createElement('i');
+                if(accion[0].texto != undefined) item.innerHTML=accion[0].texto;
+
+                enlace.appendChild(item);
+                item.setAttribute("ejecuta",accion[0].ejecuta);
+                item.setAttribute("parametro",accion[0].parametro);
+                item.setAttribute("tipo",accion[0].tipo);
+                item.setAttribute("identificador",identificador);
+                item.setAttribute("ocultar","no");
+                if(accion[0].ocultar != undefined) item.setAttribute("ocultar","si");
+                item.className =identificador;
+                if(accion[0].clase != undefined)item.className += " "+ accion[0].clase ;
+                enlace.href="#!";
+
             }
-            enlace.href="#!";
-            var ico = document.createElement('i');
-            ico.className = "small mdi-action-toc";
-            enlace.appendChild(ico);
         }
         var auxPag = 0;
         var contPag = 1;
@@ -263,13 +274,21 @@
             }
             crearCelda(this,filaCuerpo,identificador,cuerpoInicial);
             if(accion != undefined){
-                var ulClon = ul.cloneNode(true);
-                var enlaceClon = enlace.cloneNode(true);
-                ulClon.id = "accion__"+filaCuerpo.id;
-                ulClon.setAttribute("fila",filaCuerpo.id);
-                enlaceClon.setAttribute("data-activates","accion__"+filaCuerpo.id);
-                filaCuerpo.appendChild(ulClon);
-                filaCuerpo.appendChild(enlaceClon);
+                if(accion.length > 1){
+                    var ulClon = ul.cloneNode(true);
+                    var enlaceClon = enlace.cloneNode(true);
+                    ulClon.id = "accion__"+filaCuerpo.id;
+                    ulClon.setAttribute("fila",filaCuerpo.id);
+                    enlaceClon.setAttribute("data-activates","accion__"+filaCuerpo.id);
+                    filaCuerpo.appendChild(ulClon);
+                    filaCuerpo.appendChild(enlaceClon);
+                }else{
+                    var enlaceClon = enlace.cloneNode(true);
+                    enlaceClon.id = "accion__"+filaCuerpo.id;
+                    enlaceClon.setAttribute("fila",filaCuerpo.id);
+                    filaCuerpo.appendChild(enlaceClon);
+                }
+
             }
             i++;
         });

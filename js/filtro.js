@@ -28,6 +28,7 @@ function construirBuscar(celda,identificador){
     div.appendChild(input);
     div.appendChild(i);
     celda.appendChild(div);
+    input.focus();
 }
 
 function quitarBuscar(celda){
