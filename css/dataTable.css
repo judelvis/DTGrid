@@ -88,11 +88,3 @@ h1 {
     text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
-@media screen and (max-width: 640px) {
-    table {
-        overflow-x: auto;
-        display: block;
-        width:90%;
-    }
-}
