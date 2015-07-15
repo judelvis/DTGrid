@@ -46,3 +46,8 @@ function accionPhp(funcion,datos,identificador){
         }
     });
 }
+
+
+function evaluaAccionGeneral(obj,identificador){
+
+}

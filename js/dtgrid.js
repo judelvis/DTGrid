@@ -142,7 +142,7 @@
     var crearTabla = function(identificador, arreglo,div){
         var tabla = document.createElement('table');//crea la tabla
         tabla.id = 'tbl__'+identificador;
-        tabla.className = 'hoverable  responsive-table';
+        tabla.className = 'hoverable';
         //tabla.style.cssText='position: relative;heigth:100px:';
         var titulo = tabla.createCaption();//crea caption
         titulo.id='titulo__'+identificador;
