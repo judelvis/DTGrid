@@ -93,5 +93,6 @@ h1 {
     table {
         overflow-x: auto;
         display: block;
+        width:90%;
     }
 }
