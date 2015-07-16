@@ -47,6 +47,24 @@ function accionPhp(funcion,datos,identificador){
     });
 }
 
+/*
+Funcion para botones generales
+ */
+function construirBoton(botones,identificador,datos,clase){
+    var boton = document.createElement("a");
+    boton.id= "boton__"+identificador;
+    boton.innerHTML = "boton";
+    boton.className= "waves-effect btn";
+    if(clase != undefined) boton.className += " "+clase;
+    var pie = document.getElementById("pie__"+identificador);
+    filaPie= pie.insertRow(pie.rows.length);
+    celdaPie = filaPie.insertCell(filaPie.cells.length);
+    filaCuerpo = document.getElementById('fila__'+identificador+'__1')
+    celdaPie.colSpan =  filaCuerpo.cells.length;
+    //div.appendChild(pagNuevo);
+    celdaPie.appendChild(boton);
+    alert("llega");
+}
 
 function evaluaAccionGeneral(obj,identificador){
 

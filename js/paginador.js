@@ -1,4 +1,4 @@
-function construirPaginador(div,identificador,total,tam){
+function construirPaginador(identificador,total,tam){
     var pagNuevo = document.createElement("ul");
     pagNuevo.id= "pag__"+identificador;
     pagNuevo.className= "pagination";

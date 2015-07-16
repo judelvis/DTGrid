@@ -50,7 +50,8 @@
                     "clase": "mdi-action-delete",
                     "texto": "Borrar"
                 }]
-            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'}},
+            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'},'clase' : "brown darken-4  light-green-text lighten-4-text","boton":
+                    [{"parametro":[1.3],"titulo":"enviar","ejecuta":"accion.php","tipo":"php","clase":"mdi-action-done"}]},
                 {"titulo":"Titulo de la tabla sencilla","enlace":[{"columna":"1","url":"basico_origen_php.php","target":"_blank","codeigniter":true},{"columna":"3","url":"basico_origen_script.php"}]}]);
             var para = 'cedula=17456121';
             var datos3 = {'tipoOrigen': 'php', 'rutaObjeto': 'origenphp.php', 'parametro': para};

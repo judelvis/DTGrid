@@ -116,7 +116,8 @@
             if(arreglo.config.enumera != undefined) numera=arreglo.config.enumera;
             crearCabecera(identificador,arreglo.datos.cabecera,numera,arreglo.config.accion);
             crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion,arreglo.config.clase,arreglo.config.paginador);
-            if(arreglo.config.paginador != undefined)construirPaginador(div,identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
+            if(arreglo.config.paginador != undefined)construirPaginador(identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
+            if(arreglo.config.boton != undefined)construirBoton(arreglo.config.boton,identificador,arreglo.datos.cuerpo,arreglo.config.clase);
             if(arreglo.config.filtro != undefined)construirFiltro(identificador,arreglo.config.filtro);
             if(arreglo.config.enlace != undefined)construirEnlace(identificador,arreglo.config.enlace);
             if(arreglo.config.editable != undefined)btnEditable(identificador,obj);
@@ -156,7 +157,7 @@
         domPie.id = 'pie__'+identificador;
         if(arreglo.config.clase != undefined) domCabecera.className = arreglo.config.clase;
         div.appendChild(tabla);
-        if(arreglo.config.accion != undefined){
+        if(arreglo.config.accion != undefined || arreglo.config.boton != undefined){
             var respuestas = document.createElement("div");
             respuestas.id ="respuestas__"+identificador;
             respuestas.className ="modal";
