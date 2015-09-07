@@ -117,7 +117,7 @@
             crearCabecera(identificador,arreglo.datos.cabecera,numera,arreglo.config.accion);
             crearCuerpo(identificador,arreglo.datos,numera,detalle,arreglo.config.accion,arreglo.config.clase,arreglo.config.paginador);
             if(arreglo.config.paginador != undefined)construirPaginador(identificador,arreglo.datos.cuerpo.length,arreglo.config.paginador);
-            if(arreglo.config.boton != undefined)construirBoton(arreglo.config.boton,identificador,arreglo.datos.cuerpo,arreglo.config.clase);
+            if(arreglo.config.boton != undefined)construirBoton(arreglo.config.boton,identificador,arreglo,arreglo.config.clase);
             if(arreglo.config.filtro != undefined)construirFiltro(identificador,arreglo.config.filtro);
             if(arreglo.config.enlace != undefined)construirEnlace(identificador,arreglo.config.enlace);
             if(arreglo.config.editable != undefined)btnEditable(identificador,obj);
@@ -232,7 +232,7 @@
             }else{
                 var enlace = document.createElement("a");
                 var item = document.createElement('i');
-                if(accion[0].texto != undefined) item.innerHTML=accion[0].texto;
+                if(accion[0].texto != undefined) enlace.innerHTML=accion[0].texto;
 
                 enlace.appendChild(item);
                 item.setAttribute("ejecuta",accion[0].ejecuta);
@@ -242,7 +242,7 @@
                 item.setAttribute("ocultar","no");
                 if(accion[0].ocultar != undefined) item.setAttribute("ocultar","si");
                 item.className =identificador;
-                if(accion[0].clase != undefined)item.className += " "+ accion[0].clase ;
+                if(accion[0].clase != undefined)item.className += " small "+ accion[0].clase ;
                 enlace.href="#!";
 
             }

@@ -58,7 +58,7 @@ function verificarEditable(identificador,obj){
                 contenido = $hTable.find('.selected input').val();eval("obj."+identificador+".datos.cuerpo["+posFila+"]["+posCol+"]='"+contenido+"';");
                 break;
             case "<selec":
-                valor = $("select option:selected").text();contenido = valor;eval("obj."+identificador+".datos.cuerpo["+posFila+"]["+posCol+"]='"+celdaActual.children().val()+"';");
+                valor = $("#cmbGridEdit option:selected").text();contenido = valor;eval("obj."+identificador+".datos.cuerpo["+posFila+"]["+posCol+"]='"+celdaActual.children().val()+"';");
                 break;
             case "<texta":
                 contenido = $hTable.find('.selected textarea').val();eval("obj."+identificador+".datos.cuerpo["+posFila+"]["+posCol+"]='"+contenido+"';");
@@ -210,7 +210,7 @@ function crearCalendario(elementoActual){
 }
 
 function crearCombo(elementoActual,tipo){
-    var combo = $('<select>',{class:"browser-default"});
+    var combo = $('<select>',{class:"browser-default",id:'cmbGridEdit'});
     $.each(tipo,function(clave,valor){
         combo.append( new Option(valor,clave) );
     });

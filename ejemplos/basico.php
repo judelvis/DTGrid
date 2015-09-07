@@ -50,10 +50,24 @@
                     "clase": "mdi-action-delete",
                     "texto": "Borrar"
                 }]
-            }, {'titulo': 'tabla2', "detalle": {"tipo": "pre"}, 'enumera': true, 'editable': {'c1': 'texto'},'clase' : "brown darken-4  light-green-text lighten-4-text","boton":
-                    [{"parametro":[1.3],"titulo":"enviar","ejecuta":"accion.php","tipo":"php","clase":"mdi-action-done"},
-                        {"titulo":"guardar","ejecuta":"accion.php","clase":"mdi-content-save"}]},
-                {"titulo":"Titulo de la tabla sencilla","enlace":[{"columna":"1","url":"basico_origen_php.php","target":"_blank","codeigniter":true},{"columna":"3","url":"basico_origen_script.php"}]}]);
+            }, {'titulo': 'tabla2',
+                "detalle": {"tipo": "pre"},
+                'enumera': true,
+                'editable': {'c1': 'texto'},
+                'clase' : "brown darken-4  light-green-text lighten-4-text",
+                "accion": [{
+                    "ejecuta": "primera_funcion",
+                    "tipo": "script",
+                    "clase": "mdi-content-save",
+                    "parametro": [2, 4],
+                    "ocultar":true
+                }],
+                "boton":
+                    [{"parametro":[1,3],"titulo":"enviar","ejecuta":"accion.php","tipo":"php","icono":"mdi-action-done"},
+                        {"titulo":"guardar","ejecuta":"accion.php","tipo":"php","icono":"mdi-content-save"}]},
+                {"titulo":"Titulo de la tabla sencilla",
+                    "enlace":[{"columna":"1","url":"basico_origen_php.php","target":"_blank","codeigniter":true},
+                        {"columna":"3","url":"basico_origen_script.php"}]}]);
             var para = 'cedula=17456121';
             var datos3 = {'tipoOrigen': 'php', 'rutaObjeto': 'origenphp.php', 'parametro': para};
 

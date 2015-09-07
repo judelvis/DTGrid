@@ -61,18 +61,43 @@ function construirBoton(botones,identificador,datos,clase){
         var boton = document.createElement("a");
         boton.id= "boton__"+identificador;
         boton.innerHTML = this.titulo
-        boton.className= "waves-effect waves-light btn";
-        if(this.clase != undefined){
+        boton.className= "waves-effect waves-light btn botonDtgrid";
+        boton.setAttribute("ejecuta",this.ejecuta);
+        boton.setAttribute("parametro",this.parametro);
+        boton.setAttribute("tipo",this.tipo);
+        boton.setAttribute("identificador",identificador);
+        if(this.icono != undefined){
             var i = document.createElement("i")
-
+            i.className = this.icono;
+            boton.appendChild(i);
         }
         if(clase != undefined) boton.className += " "+clase;
         celdaPie.appendChild(boton);
     })
-
-
+    evaluaAccionGeneral(datos,identificador);
 }
 
 function evaluaAccionGeneral(obj,identificador){
-
+    $(".botonDtgrid").click(function (event) {
+        var parametro = this.getAttribute("parametro");
+        var datos = {'cabecera':obj.datos.cabecera,'cuerpo':obj.datos.cuerpo,'oculto':new Array()};
+        if(obj.config.oculto != undefined) datos.oculto = obj.config.oculto;
+        if(parametro != "undefined" && parametro != ""){
+            var param = parametro.split(",");
+            datos.cuerpo = new Array();datos.cabecera = new Array();
+            $.each(obj.datos.cuerpo,function(clave,valor){
+                //alert(this+'**'+clave+'**'+valor);
+                var dat = new Array();
+                $.each(param,function() {
+                    dat.push(valor[this-1]);
+                });
+                datos.cuerpo.push(dat);
+            });
+            $.each(param,function() {
+                datos.cabecera.push(obj.datos.cabecera[this-1]);
+            });
+        }
+        ejecutaAccion(this.getAttribute("tipo"),this.getAttribute("ejecuta"),JSON.stringify(datos),identificador);
+        //alert(JSON.stringify(datos));
+    });
 }
