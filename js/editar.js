@@ -47,12 +47,13 @@ function verificarEditable(identificador,obj){
     function restaurarValor(){
         var tipoHijo = celdaActual.html().substr(0,6);
         var contenido = restaurarElemento(tipoHijo);
-        celdaActual.html(contenido);
+        if(contenido != '')celdaActual.html(contenido);
     }
 
     function restaurarElemento(tipoHijo){
         var contenido = '';
         obtenerPosicion();
+        //alert(tipoHijo);
         switch (tipoHijo){
             case "<input":
                 contenido = $hTable.find('.selected input').val();eval("obj."+identificador+".datos.cuerpo["+posFila+"]["+posCol+"]='"+contenido+"';");
@@ -88,6 +89,7 @@ function verificarEditable(identificador,obj){
             if(numera == true)$("#btn__"+iden).focus();
             else $("#btnEditar__"+identificador).focus();
         }
+        //alert(celdaActual.html());
         existePag = celdaActual.parent().attr("pagina");
         return celdaActual;
     }
@@ -99,6 +101,7 @@ function verificarEditable(identificador,obj){
         if ( x < 1 ) x = 1;
         var pos = x+enume;
         celdaActual = $hTable.find("[id=td__"+identificador+'__'+y+"__"+pos+"]");
+        //alert($("#td__"+identificador+"__"+y+"__"+pos).text());
         celdaActual.toggleClass('selected');
         if(existePag != undefined){
             var pag = celdaActual.parent().attr("pagina");
@@ -107,7 +110,6 @@ function verificarEditable(identificador,obj){
                 existePag = pag;
             }
         }
-
         if(numera == true)$("#btn__"+identificador+'__'+y).focus();
         else $("#btnEditar__"+identificador).focus();
         return celdaActual;
@@ -142,7 +144,7 @@ function verificarEditable(identificador,obj){
         if (e.keyCode == 13) {
             if(celdaActual.children().size() == 0){
                 evaluarHijos()
-                edit(celdaActual);
+                edit(selecionarCelda2(celdaActual));
             }else{
                 evaluarHijos()
                 selecionarCelda2()
